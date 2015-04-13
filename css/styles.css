@@ -1,0 +1,14 @@
+#show-tasks {
+    display: none;
+}
+ul {
+    list-style-type: none;
+}
+
+
+#wrapper {
+  width : 400px;
+  margin-left: auto ;
+  margin-right: auto ;
+
+}

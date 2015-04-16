@@ -1,11 +1,14 @@
 $(document).ready(function() {
-    event.preventDefault();
 
-    $("form#create-lists").submit(function(event) {
 
-        var inputtedList = $("input.create").val("");
+    $("form#create-list").submit(function(event) {
+
+        var inputtedList = $("input#create").val();
         console.log(inputtedList);
-        $("ul#lists").append("<li><span class='listitem'>" + inputtedList + "</span></li>");
+        $("ol#lists").append("<li><span class='listitem'>" + inputtedList + "</span></li>");
+
+    //don't try to send this form anywhere
+    event.preventDefault();
     });
 
     $("form#tasks").submit(function(event) {
@@ -19,6 +22,8 @@ $(document).ready(function() {
             newList.tasks.push(newTask);
 
         });
+
+    event.preventDefault();
 
         $("ul#all-tasks").append("<li><span class='task'>" + newTask.newDescription + "</span></li>");
 

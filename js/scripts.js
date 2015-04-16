@@ -1,37 +1,46 @@
 $(document).ready(function() {
 
+  $("form#create-list").submit(function(event) {
+      event.preventDefault();
 
-    $("form#create-list").submit(function(event) {
+    var inputtedList = $("input#create").val();
 
-        var inputtedList = $("input#create").val();
-        console.log(inputtedList);
-        $("ol#lists").append("<li><span class='listitem'>" + inputtedList + "</span></li>");
+    var newList = {
+      list: inputtedList,
+      tasks: []
+    };
 
-    //don't try to send this form anywhere
-    event.preventDefault();
-    });
+    $("ol#lists").append("<li><span class='listitem'>" + inputtedList + "</span></li>");
 
-    $("form#tasks").submit(function(event) {
+    // $(".listitem").off("submit");
+    $(".listitem").last().click(function() {
 
-        var newList = { list: inputtedList, tasks: [] };
+      $(".createtasks").show();
+      $("#taskform").show();
 
-        $("#all-tasks").each(function() {
-            var inputtedTask = $(this).find("input.new-task").val();
-
-            var newTask = { description: inputtedTask };
-            newList.tasks.push(newTask);
+      newList.tasks.forEach(function(task) {
+            $(".show-tasks").append("<li>" + task.description + "</li>");
 
         });
 
-    event.preventDefault();
+    $("form#tasks").off("submit");
 
-        $("ul#all-tasks").append("<li><span class='task'>" + newTask.newDescription + "</span></li>");
-
-         $(".task").last().click(function() {
-            $(".description").text(newTask.newDescription);
-            $(this).hide("<li><span class='task'>" + newTask.newDescription + "</span></li>");
-            $("#completed-tasks").append("<li>" + newTask.newDescription + "</li>");
+      $("form#tasks").submit(function(event) {
+        var inputtedTask = $("input#description").val();
+        var newTask = {
+          description: inputtedTask
+        };
+        newList.tasks.push(newTask);
+        $(".show-tasks").empty();
+        newList.tasks.forEach(function(task) {
+              $(".show-tasks").append("<li>" + task.description + "</li>");
         });
+        event.preventDefault();
+
+      });
 
     });
-});
+
+  });
+
+  });
